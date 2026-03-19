@@ -5,3 +5,8 @@
 .kotlin
 .qodana
 build
+gradle
+src/test
+README.md
+CHANGELOG.md
+src/main/kotlin

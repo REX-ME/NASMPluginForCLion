@@ -1,15 +1,15 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.rexme.nasmpluginforclion</id>
-    <name>NASMPluginForCLion</name>
+    <id>com.rexme.plugins</id>
+    <name>NASM_Assembly_Support</name>
     <vendor>rex-me</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.clion</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.rexme.nasmpluginforclion.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.rexme.nasmpluginforclion.startup.MyProjectActivity" />
+        <toolWindow factoryClass="com.rexme.plugins.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <postStartupActivity implementation="com.rexme.plugins.startup.MyProjectActivity" />
     </extensions>
 </idea-plugin>
