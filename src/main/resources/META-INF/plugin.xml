@@ -1,15 +1,37 @@
 <idea-plugin>
-    <id>com.rexme.plugins</id>
-    <name>NASM_Assembly_Support</name>
+    <id>com.rexme.plugins.nasm</id>
+    <name>NASMAssemblySupport</name>
     <vendor>rex-me</vendor>
 
+    <!-- Grundlegende Plattform-Module -->
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.clion</depends>
+    <!-- Spezifisch für CLion/C-basierte IDEs -->
+    <depends>com.intellij.modules.clion</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.rexme.plugins.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.rexme.plugins.startup.MyProjectActivity" />
+        <!-- 1. Registriert die Sprache NASM -->
+        <fileType name="NASM File"
+                  implementationClass="com.rexme.plugins.nasm.NasmFileType"
+                  fieldName="INSTANCE"
+                  language="NASM"
+                  extensions="asm;nasm;s"/>
+
+        <!-- 2. Parser Definition (Das Herzstück für die Struktur) -->
+        <lang.parserDefinition language="NASM"
+                               implementationClass="com.rexme.plugins.nasm.NasmParserDefinition"/>
+
+        <!-- 3. Syntax Highlighting (Farben) -->
+        <lang.syntaxHighlighterFactory language="NASM"
+                                       implementationClass="com.rexme.plugins.nasm.NasmSyntaxHighlighterFactory"/>
+
+        <!-- 4. Autovervollständigung (mov, eax, etc.) -->
+        <!--completion.contributor language="NASM"
+                                implementationClass="com.rexme.plugins.nasm.NasmCompletionContributor"/-->
+
+        <!-- 5. Kommentieren von Zeilen (Strg + /) -->
+        <lang.commenter language="NASM"
+                        implementationClass="com.rexme.plugins.nasm.NasmCommenter"/>
     </extensions>
 </idea-plugin>
