@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0
+## [Unreleased]
 ### Added
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
 - Syntax Highlighting for much NASM x86 Opcodes
