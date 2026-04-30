@@ -15,14 +15,20 @@
  * along with this program.  If not, see <https://gnu.org>.
  */
 
-package com.rexme.plugins.nasm;
+package com.rexme.plugins.nasm.psi;
 
-import com.intellij.lang.Language;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.lang.ASTNode;
+import org.jetbrains.annotations.NotNull;
 
-public final class NasmLanguage extends Language {
-    public static final NasmLanguage INSTANCE = new NasmLanguage();
+/** Base class for all NASM composite PSI elements. */
+public class NasmCompositeElementImpl extends ASTWrapperPsiElement {
+    public NasmCompositeElementImpl(@NotNull ASTNode node) {
+        super(node);
+    }
 
-    private NasmLanguage() {
-        super("NASM");
+    @Override
+    public String toString() {
+        return getNode().getElementType().toString();
     }
 }

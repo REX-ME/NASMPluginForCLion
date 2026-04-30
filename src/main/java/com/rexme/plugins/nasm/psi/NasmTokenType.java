@@ -15,14 +15,20 @@
  * along with this program.  If not, see <https://gnu.org>.
  */
 
-package com.rexme.plugins.nasm;
+package com.rexme.plugins.nasm.psi;
 
-import com.intellij.lang.Language;
+import com.intellij.psi.tree.IElementType;
+import com.rexme.plugins.nasm.NasmLanguage;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 
-public final class NasmLanguage extends Language {
-    public static final NasmLanguage INSTANCE = new NasmLanguage();
+public class NasmTokenType extends IElementType {
+    public NasmTokenType(@NotNull @NonNls String debugName) {
+        super(debugName, NasmLanguage.INSTANCE);
+    }
 
-    private NasmLanguage() {
-        super("NASM");
+    @Override
+    public String toString() {
+        return "NasmTokenType." + super.toString();
     }
 }

@@ -1,7 +1,8 @@
 .DS_Store
 .gradle
-.idea
 .intellijPlatform
+.idea/modules
+.idea/libraries
 .kotlin
 .qodana
 build
@@ -10,3 +11,7 @@ src/test
 README.md
 CHANGELOG.md
 src/main/kotlin
+Save
+.run
+gradlew
+gradlew.bat

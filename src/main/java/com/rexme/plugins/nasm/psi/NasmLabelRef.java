@@ -15,14 +15,8 @@
  * along with this program.  If not, see <https://gnu.org>.
  */
 
-package com.rexme.plugins.nasm;
+package com.rexme.plugins.nasm.psi;
 
-import com.intellij.lang.Language;
-
-public final class NasmLanguage extends Language {
-    public static final NasmLanguage INSTANCE = new NasmLanguage();
-
-    private NasmLanguage() {
-        super("NASM");
-    }
+/** Represents a label reference, e.g.  {@code jmp myLabel}  or  {@code call myProc}. */
+public interface NasmLabelRef extends NasmNamedElement {
 }

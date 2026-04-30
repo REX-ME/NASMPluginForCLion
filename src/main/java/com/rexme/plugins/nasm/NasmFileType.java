@@ -1,40 +1,35 @@
+/*
+ * Copyright (C) 2026 REX-ME
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://gnu.org>.
+ */
+
 package com.rexme.plugins.nasm;
 
-import com.intellij.icons.AllIcons;
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.util.IconLoader;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
-public class NasmFileType extends LanguageFileType{
+public final class NasmFileType extends LanguageFileType {
     public static final NasmFileType INSTANCE = new NasmFileType();
 
     private NasmFileType() {
         super(NasmLanguage.INSTANCE);
     }
 
-    @NotNull
-    @Override
-    public String getName() {
-        return "NASM File";
-    }
-
-    @NotNull
-    @Override
-    public String getDescription() {
-        return "NASM Assembly language file";
-    }
-
-    @NotNull
-    @Override
-    public String getDefaultExtension() {
-        return "asm";
-    }
-
-    @Nullable
-    @Override
-    public Icon getIcon() {
-        return NasmIcons.FILE;
-    }
+    @Override public @NotNull String getName()            { return "NASM Assembly"; }
+    @Override public @NotNull String getDescription()     { return "NASM x86/x86-64 Assembly"; }
+    @Override public @NotNull String getDefaultExtension(){ return "asm"; }
+    @Override public Icon getIcon()                       { return NasmIcons.FILE; }
 }

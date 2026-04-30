@@ -1,37 +1,137 @@
-<idea-plugin>
-    <id>com.rexme.plugins.nasm</id>
-    <name>NASMAssemblySupport</name>
-    <vendor>rex-me</vendor>
+<!--
+  ~ Copyright (C) 2026 REX-ME
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://gnu.org>.
+  -->
 
-    <!-- Grundlegende Plattform-Module -->
+<idea-plugin>
+    <description><![CDATA[
+        <h1>NASMPlugin for CLion</h1>
+        <br>
+        <h2>Status:</h2>
+        <ul>
+          <li>Version is 1.0.0</li>
+          <li>Compatible with CLion 2026.1.1</li>
+        </ul>
+        <br>
+        <h2>Features:</h2>
+        <ul>
+          <li>Syntax Highlighting for much NASM Opcodes</li>
+          <li>A very little bit Error Analysis</li>
+          <li>Highlighting NASM Macros (Info: %include doesn't actual working with the marking of the labels)</li>
+          <li>GoTo Definition (For Labels and variables)</li>
+          <li>Missing: Refactoring (It will trigger an IDE-Error, you musn't report it, I'm working on it)</li>
+        </ul>
+        <h2>License:</h2>
+        <p><b>GNU GPL v3</b></p><br>
+        <p><a href="https://www.gnu.org/licenses/gpl-3.0.html">Full License</a></p>
+        <h3>For what the Plugin is for:</h3>
+        <p>The Plugin is for Programmer, who uses the Netwide Assembler (NASM), and needs a plugin for Syntax Highlighting and other Features</p>
+        <h3>Why I have done this Plugin:</h3>
+        <p>I had some Problems with some other NASM Plugins, who I had used before, so I tough "You hate the Plugins, you need a Plugin, you can Java, so make a Plugin. And because you like harcore, you use just Java"</p>
+    ]]></description>
+
+    <id>com.nasmPlugin.NASMPluginForCLion</id>
+    <name>NASM for CLion</name>
+    <vendor>
+        REX-ME
+    </vendor>
+
+
+    <idea-version since-build="233"/>
+
     <depends>com.intellij.modules.platform</depends>
-    <!-- Spezifisch für CLion/C-basierte IDEs -->
     <depends>com.intellij.modules.clion</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
     <extensions defaultExtensionNs="com.intellij">
-        <!-- 1. Registriert die Sprache NASM -->
-        <fileType name="NASM File"
-                  implementationClass="com.rexme.plugins.nasm.NasmFileType"
-                  fieldName="INSTANCE"
-                  language="NASM"
-                  extensions="asm;nasm;s"/>
 
-        <!-- 2. Parser Definition (Das Herzstück für die Struktur) -->
-        <lang.parserDefinition language="NASM"
-                               implementationClass="com.rexme.plugins.nasm.NasmParserDefinition"/>
+        <!-- ── File type ─────────────────────────────────────────────────────── -->
+        <fileType
+                name="NASM Assembly"
+                implementationClass="com.rexme.plugins.nasm.NasmFileType"
+                fieldName="INSTANCE"
+                language="NASM"
+                extensions="asm;nasm;s;inc"/>
 
-        <!-- 3. Syntax Highlighting (Farben) -->
-        <lang.syntaxHighlighterFactory language="NASM"
-                                       implementationClass="com.rexme.plugins.nasm.NasmSyntaxHighlighterFactory"/>
+        <!-- ── Language + parser ─────────────────────────────────────────────── -->
+        <lang.parserDefinition
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.parser.NasmParserDefinition"/>
 
-        <!-- 4. Autovervollständigung (mov, eax, etc.) -->
-        <!--completion.contributor language="NASM"
-                                implementationClass="com.rexme.plugins.nasm.NasmCompletionContributor"/-->
+        <!-- ── Syntax highlighting ───────────────────────────────────────────── -->
+        <lang.syntaxHighlighterFactory
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.highlighting.NasmSyntaxHighlighterFactory"/>
 
-        <!-- 5. Kommentieren von Zeilen (Strg + /) -->
-        <lang.commenter language="NASM"
-                        implementationClass="com.rexme.plugins.nasm.NasmCommenter"/>
+        <colorSettingsPage
+                implementation="com.rexme.plugins.nasm.highlighting.NasmColorSettingsPage"/>
+
+        <!-- Size-specifier yellow override for Default and Darcula themes -->
+        <additionalTextAttributes scheme="Default"        file="colorSchemes/NasmDefault.xml"/>
+        <additionalTextAttributes scheme="Darcula"        file="colorSchemes/NasmDarcula.xml"/>
+        <additionalTextAttributes scheme="High contrast"  file="colorSchemes/NasmDarcula.xml"/>
+
+        <!-- ── Semantic annotations ──────────────────────────────────────────── -->
+        <annotator
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.annotator.NasmAnnotator"/>
+
+        <!-- ── Structure View ────────────────────────────────────────────────── -->
+        <lang.psiStructureViewFactory
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.structure.NasmStructureViewFactory"/>
+
+        <!-- ── Code folding ──────────────────────────────────────────────────── -->
+        <lang.foldingBuilder
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.folding.NasmFoldingBuilder"/>
+
+        <!-- ── Gutter icons (usages) ─────────────────────────────────────────── -->
+        <codeInsight.lineMarkerProvider
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.structure.NasmLineMarkerProvider"/>
+
+        <!-- ── Inlay hints (register bit-width) ──────────────────────────────── -->
+        <codeInsight.inlayProvider
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.inlay.NasmInlayHintsProvider"/>
+
+        <!-- ── Bracket matching ──────────────────────────────────────────────── -->
+        <lang.braceMatcher
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.highlighting.NasmBraceMatcher"/>
+
+        <!-- ── Code completion ───────────────────────────────────────────────── -->
+        <completion.contributor
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.completion.NasmCompletionContributor"/>
+
+        <!-- ── References (GoTo Definition, %include, Find Usages, Rename) ──── -->
+        <psi.referenceContributor
+                language="NASM"
+                implementation="com.rexme.plugins.nasm.reference.NasmReferenceContributor"/>
+
+        <!-- ── Commenter  (; line comments) ──────────────────────────────────── -->
+        <lang.commenter
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.highlighting.NasmCommenter"/>
+
+        <!-- ── Spell-check suppression ───────────────────────────────────────── -->
+        <spellchecker.support
+                language="NASM"
+                implementationClass="com.rexme.plugins.nasm.spellcheck.NasmSpellcheckStrategy"/>
+
     </extensions>
+
 </idea-plugin>

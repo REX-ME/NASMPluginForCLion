@@ -15,14 +15,10 @@
  * along with this program.  If not, see <https://gnu.org>.
  */
 
-package com.rexme.plugins.nasm;
+package com.rexme.plugins.nasm.psi;
 
-import com.intellij.lang.Language;
+import com.intellij.psi.PsiNameIdentifierOwner;
 
-public final class NasmLanguage extends Language {
-    public static final NasmLanguage INSTANCE = new NasmLanguage();
-
-    private NasmLanguage() {
-        super("NASM");
-    }
+/** Marker interface for any NASM PSI element that carries a user-visible name. */
+public interface NasmNamedElement extends PsiNameIdentifierOwner {
 }

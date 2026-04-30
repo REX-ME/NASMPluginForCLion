@@ -15,14 +15,20 @@
  * along with this program.  If not, see <https://gnu.org>.
  */
 
-package com.rexme.plugins.nasm;
+package com.rexme.plugins.nasm.highlighting;
 
-import com.intellij.lang.Language;
+import com.intellij.openapi.fileTypes.SyntaxHighlighter;
+import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public final class NasmLanguage extends Language {
-    public static final NasmLanguage INSTANCE = new NasmLanguage();
-
-    private NasmLanguage() {
-        super("NASM");
+public final class NasmSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
+    @Override
+    public @NotNull SyntaxHighlighter getSyntaxHighlighter(
+            @Nullable Project project,
+            @Nullable VirtualFile virtualFile) {
+        return new NasmSyntaxHighlighter();
     }
 }
