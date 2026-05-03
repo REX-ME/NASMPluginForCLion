@@ -213,12 +213,13 @@ public final class NasmLexer extends LexerBase {
         // ── String literals  " ' ` ────────────────────────────────────────────
         if (c == '"' || c == '\'' || c == '`') {
             char q = c;
+            boolean isBacktick = (q == '`');
             pos++;
             while (pos < myEnd && myBuffer.charAt(pos) != q && myBuffer.charAt(pos) != '\n') {
-                if (myBuffer.charAt(pos) == '\\' && pos + 1 < myEnd) pos++; // escape
+                if (isBacktick && myBuffer.charAt(pos) == '\\' && pos + 1 < myEnd) pos++;
                 pos++;
             }
-            if (pos < myEnd && myBuffer.charAt(pos) == q) pos++;
+            if (pos < myEnd && myBuffer.charAt(pos) == q ) pos++;
             finish(pos, NasmTokenTypes.STRING);
             return;
         }

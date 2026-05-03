@@ -121,29 +121,13 @@ public final class NasmParser implements PsiParser, LightPsiParser {
             if (tt == NasmTokenTypes.IDENTIFIER) {
                 Marker ref = b.mark();
                 b.advanceLexer();
-                ref.done(NasmElementTypes.LABEL_REF);
+                ref.done(NasmElementTypes.PREPROC_STMT);
             }
             consumeToEndOfLine(b);
         }
         eatComment(b);
         eatNewline(b);
         stmt.done(NasmElementTypes.MISC_STMT);
-    }
-    private void parseMacroDefinition(PsiBuilder b) {
-        Marker m = b.mark();
-        b.advanceLexer(); // %macro
-        /*
-        if (b.getTokenType() == NasmTokenTypes.IDENTIFIER) {
-            Marker def = b.mark();
-            b.advanceLexer(); // macro name
-            def.done(NasmElementTypes.LABEL_DEF); // <-- der Trick
-        }*/
-        b.advanceLexer();
-
-        consumeToEndOfLine(b);
-        eatComment(b);
-        eatNewline(b);
-        m.done(NasmElementTypes.LABEL_DEF);
     }
 
     // ── Label definitions ─────────────────────────────────────────────────────
@@ -174,13 +158,19 @@ public final class NasmParser implements PsiParser, LightPsiParser {
     // ── global / extern / common ──────────────────────────────────────────────
 
     private void parseExportDecl(PsiBuilder b, Marker stmt) {
+        IElementType keyword = b.getTokenType();
         b.advanceLexer();
         while (b.getTokenType() == NasmTokenTypes.IDENTIFIER
             || b.getTokenType() == NasmTokenTypes.COMMA) {
             if (b.getTokenType() == NasmTokenTypes.IDENTIFIER) {
-                Marker ref = b.mark();
+                Marker m = b.mark();
                 b.advanceLexer();
-                ref.done(NasmElementTypes.LABEL_REF);
+                if (keyword == NasmTokenTypes.EXTERN_KW
+                    || keyword == NasmTokenTypes.COMMON_KW) {
+                    m.done(NasmElementTypes.LABEL_DEF);
+                } else {
+                    m.done(NasmElementTypes.LABEL_REF);
+                }
             } else {
                 b.advanceLexer();
             }

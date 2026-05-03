@@ -127,10 +127,6 @@
                 language="NASM"
                 implementationClass="com.rexme.plugins.nasm.highlighting.NasmCommenter"/>
 
-        <!-- ── Spell-check suppression ───────────────────────────────────────── -->
-        <spellchecker.support
-                language="NASM"
-                implementationClass="com.rexme.plugins.nasm.spellcheck.NasmSpellcheckStrategy"/>
 
     </extensions>
 

@@ -55,4 +55,8 @@ public interface NasmElementTypes {
 
     // ── Catch-all for unrecognised / misc lines ─────────────────────────────────
     IElementType MISC_STMT           = new NasmElementType("MISC_STMT");
+
+    IElementType MACRO_REF           = new NasmElementType("LABEL_REF"); //LABEL_REF -> Highlighting
+
+    IElementType MACRO_DEF           = new NasmElementType("LABEL_DEF");
 }
