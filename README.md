@@ -1,13 +1,14 @@
-# NASM Plugin For CLion
+# NASM Plugin for CLion
 
-## Status:
-- Version is 1.0.0
-- Working (For Features see: [CHANGELOG.md](CHANGELOG.md))
-- The Plugin is compatible with CLion 2026.1.1
+## Status
+- Version: 1.0.0
+- Working (see [CHANGELOG.md](CHANGELOG.md) for features)
+- Compatible with CLion 2026.1.1
 - [LICENSE](LICENSE.md)
 
-## For what the Plugin is for:
-The Plugin is for Programmer, who uses the Netwide Assembler (NASM), and needs a plugin for Syntax Highlighting and other Features
+## What this plugin is for
+This plugin is intended for programmers who use the Netwide Assembler (NASM) and need syntax highlighting and other features in CLion.
 
-## Why I have done this Plugin:
-I had some Problems with some other NASM Plugins, who I had used before, so I tough "You hate the Plugins, you need a Plugin, you can Java, so make a Plugin. And because you like harcore, you use just Java"
+## Why I created this plugin
+I had problems with other NASM plugins I used before, so I thought: "If you don't like the available plugins, build your own."  
+Since I know Java, I decided to write it myself — and because I like a challenge, I used only Java.
