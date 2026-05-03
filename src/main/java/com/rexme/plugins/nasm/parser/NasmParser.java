@@ -28,7 +28,7 @@ import com.rexme.plugins.nasm.psi.NasmTokenTypes;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Hand-written recursive-descent parser for NASM assembly.
+ * Handwritten recursive-descent parser for NASM assembly.
  *
  * <pre>
  * file      ::= statement*
@@ -77,7 +77,7 @@ public final class NasmParser implements PsiParser, LightPsiParser {
             consumeToEndOfLine(b);
             eatComment(b);
             eatNewline(b);
-            stmt.done(NasmElementTypes.PREPROC_STMT);
+            stmt.done(NasmElementTypes.LABEL_DEF);
             return;
         }
 
@@ -128,6 +128,22 @@ public final class NasmParser implements PsiParser, LightPsiParser {
         eatComment(b);
         eatNewline(b);
         stmt.done(NasmElementTypes.MISC_STMT);
+    }
+    private void parseMacroDefinition(PsiBuilder b) {
+        Marker m = b.mark();
+        b.advanceLexer(); // %macro
+        /*
+        if (b.getTokenType() == NasmTokenTypes.IDENTIFIER) {
+            Marker def = b.mark();
+            b.advanceLexer(); // macro name
+            def.done(NasmElementTypes.LABEL_DEF); // <-- der Trick
+        }*/
+        b.advanceLexer();
+
+        consumeToEndOfLine(b);
+        eatComment(b);
+        eatNewline(b);
+        m.done(NasmElementTypes.LABEL_DEF);
     }
 
     // ── Label definitions ─────────────────────────────────────────────────────

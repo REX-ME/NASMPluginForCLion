@@ -5,6 +5,7 @@
 - Working (see [CHANGELOG.md](CHANGELOG.md) for features)
 - Compatible with CLion 2026.1.1
 - [LICENSE](LICENSE.md)
+- **INFO:** Support for CLion 2025.* will end with CLion 2027.*
 
 ## What this plugin is for
 This plugin is intended for programmers who use the Netwide Assembler (NASM) and need syntax highlighting and other features in CLion.
