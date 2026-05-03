@@ -10,6 +10,6 @@
 - GoTo Definition (Labels) **26. April 2026**
 - Missing: Refactor (It will make an IDE-Error, so you don't must report it) **26. April 2026**
 - **Bugfixes:**
-- - **3. March 2026**:
+- - **3. May 2026**:
 - - - Escape-Fix, in ' ' and " " NASM don't escape
 - - - extern/common labels are now LABEL_DEF, so there is autocomplete for them
